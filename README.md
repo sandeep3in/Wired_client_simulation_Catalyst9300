@@ -29,13 +29,13 @@ Switch config for Docker networking:
 interface AppGigabitEthernet1/0/1
 switchport mode trunk
 
-app-hosting appid ub       client1 -vlan 1021
+app-hosting appid ub    <===  client1 -vlan 1021
 app-vnic AppGigabitEthernet trunk
   vlan 1021 guest-interface 0
-app-hosting appid ub2      client2 -vlan 1022
+app-hosting appid ub2   <==   client2 -vlan 1022
 app-vnic AppGigabitEthernet trunk
   vlan 1022 guest-interface 0
-app-hosting appid ub3     client2 -vlan 1024
+app-hosting appid ub3  <==   client2 -vlan 1024
 app-vnic AppGigabitEthernet trunk
   vlan 1024 guest-interface 0
 
