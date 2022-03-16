@@ -5,14 +5,26 @@ We would try to use the native app-hosting tools to deploy a wired end point on 
 The first step is to create a docker image, we have used a linux ubuntu OS to create a wired endpoint on the switch and have the connectivity checked.
 The first step is to download the an existing docker image and create a tar file out of it. App-hosting supports tar based images.
  
+
  
  
-To enable app-hosting on C9k  platforms, refer the config guide belo:
+To enable app-hosting on C9k  platforms, refer the config guide below:
+https://www.cisco.com/c/dam/en/us/products/collateral/switches/catalyst-9300-series-switches/white-paper-c87-742415.pdf
+
+one of the pre-requiste is to have the SSD drive on the platform, so the app run in a dedicated space and has a dedicated x86 processor.
 
 
 Docker image location:
 First, We would need to download the image to the usbflash of the switch.
-ftp://10.104.55.25/netub.tar 
+https://hub.docker.com/r/sandeep3in/netubuntu
+
+Use the docker commands to pull the docker image and build a tar file. In this case i have a used a ubuntu linux host to create the tar file.
+
+docker pull sandeep3in/netubuntu:3.3
+
+docker save sandeep3in/netubuntu:3.3  -o netub.tar
+
+Download the tar file onto the usbflash of the switch.
 
 9300#dir usbflash1:
 Directory of usbflash1:/
