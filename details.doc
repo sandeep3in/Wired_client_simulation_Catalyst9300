@@ -1,30 +1,36 @@
 # Wired_client_simulation_Catalyst9300
-Wired endpoint simulation for testing on Cat-9300
-As networks are deployed remotely, it is quite a challenge to simulate endpoints from  remote locations.
-We would try to use the native app-hosting tools to deploy a wired end point on a catalyst 9300 switche and simulate the wired endpoints.
-The first step is to create a docker image, we have used a linux ubuntu OS to create a wired endpoint on the switch and have the connectivity checked.
-The first step is to download the an existing docker image and create a tar file out of it. App-hosting supports tar based images.
+Wired endpoint simulation on Catalyst-9300
+
+Pre-requisite: SSD drive on the platform
+
+As networks are deployed remotely, it is quite a challenge to simulate endpoints from remote locations.
+We would use the native app-hosting tools to deploy a wired endpoint on a catalyst 9300 switch and simulate multiple traffic patterns using iperf.
+
+The details below outline the steps to deploy a docker container on the Catalyst switch.
+
+The first step is to create a docker image, we have used Linux Ubuntu as the base OS with a variety of network tools for troubleshooting.
+The first step is to download the existing docker image and create a tar file out of it. App-hosting supports tar-based images.
  
 
  
  
-To enable app-hosting on C9k  platforms, refer the config guide below:
+To enable app-hosting on C9k  platforms, refer to the config guide below:
 https://www.cisco.com/c/dam/en/us/products/collateral/switches/catalyst-9300-series-switches/white-paper-c87-742415.pdf
 
-one of the pre-requiste is to have the SSD drive on the platform, so the app run in a dedicated space and has a dedicated x86 processor.
+one of the pre-requisite is to have the SSD drive on the platform, so the app runs in a dedicated space and has a dedicated x86 processor.
 
 
 Docker image location:
-First, We would need to download the image to the usbflash of the switch.
+First, We would need to download the image to the USB flash of the switch.
 https://hub.docker.com/r/sandeep3in/netubuntu
 
-Use the docker commands to pull the docker image and build a tar file. In this case i have a used a ubuntu linux host to create the tar file.
+Use the docker commands to pull the docker image and build a tar file. In this case, I have used a ubuntu Linux host to create the tar file.
 
 docker pull sandeep3in/netubuntu:3.3
 
 docker save sandeep3in/netubuntu:3.3  -o netub.tar
 
-Download the tar file onto the usbflash of the switch.
+Download the tar file onto the USB flash of the switch.
 
 9300#dir usbflash1:
 Directory of usbflash1:/
@@ -52,7 +58,7 @@ app-vnic AppGigabitEthernet trunk
   vlan 1024 guest-interface 0
 
 Switch config for enabling Docker container:
-Ensure that the appid in the networking is matching with the one specified in the install  command below.
+Ensure that the appid in the networking is matching with the one specified in the install command below.
 
 app-hosting install appid ub4 package usbflash1:netub.tar
 app-hosting activate appid ub4
